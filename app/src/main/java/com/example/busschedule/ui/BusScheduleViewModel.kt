@@ -30,6 +30,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.busschedule.BusScheduleApplication
 import com.example.busschedule.data.BusSchedule
+import com.example.busschedule.data.BusScheduleDao
 import com.example.busschedule.data.BusSchedulesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
@@ -45,20 +46,20 @@ const val TIMEOUT_MILLIS:Long = 10
 
 
 class BusScheduleViewModel(
-    val busSchedulesRepository: BusSchedulesRepository
+    val busScheduleDao: BusScheduleDao
 ): ViewModel() {
 
-    fun getFullSchedule(): Flow<List<BusSchedule>> = busSchedulesRepository.getAllBusSchedules()
+    fun getFullSchedule(): Flow<List<BusSchedule>> = busScheduleDao.getAllBusSchedules()
 
     fun getScheduleFor(stopName: String): Flow<List<BusSchedule>> =
-        busSchedulesRepository.getBusScheduleByStopName(stopName = stopName)
+        busScheduleDao.getBusScheduleByStopName(stopName = stopName)
 
     companion object {
         val factory : ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val application = (this[APPLICATION_KEY] as BusScheduleApplication)
-                val busScheduleRepository = application.container.busSchedulesRepository
-                BusScheduleViewModel(busScheduleRepository)
+
+                BusScheduleViewModel(application.container.busScheduleDatabase.busScheduleDao())
             }
         }
     }

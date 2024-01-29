@@ -3,11 +3,11 @@ package com.example.busschedule.data
 import android.content.Context
 
 interface AppContainer {
-    val busSchedulesRepository: BusSchedulesRepository
+    val busScheduleDatabase: BusScheduleDatabase
 }
 
 class AppDataContainer(private val context: Context) : AppContainer{
-    override val busSchedulesRepository by lazy {
-        OfflineBusSchedulesRepository(BusScheduleDatabase.getDatabase(context).busScheduleDao())
+    override val busScheduleDatabase by lazy {
+        BusScheduleDatabase.getDatabase(context)
     }
 }
