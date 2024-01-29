@@ -31,18 +31,8 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.busschedule.BusScheduleApplication
 import com.example.busschedule.data.BusSchedule
 import com.example.busschedule.data.BusScheduleDao
-import com.example.busschedule.data.BusSchedulesRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.launch
 
-const val TIMEOUT_MILLIS:Long = 10
 
 
 class BusScheduleViewModel(
